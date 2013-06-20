@@ -3,7 +3,7 @@ module.exports = (grunt) ->
 	grunt.loadNpmTasks 'grunt-contrib-coffee'
 	grunt.loadNpmTasks 'grunt-contrib-copy'
 	grunt.loadNpmTasks 'grunt-contrib-connect'
-	grunt.loadNpmTasks 'grunt-contrib-less'
+	grunt.loadNpmTasks 'grunt-contrib-compass'
 	grunt.loadNpmTasks 'grunt-contrib-requirejs'
 	grunt.loadNpmTasks 'grunt-contrib-watch'
 	grunt.loadNpmTasks 'grunt-mocha'
@@ -85,15 +85,18 @@ module.exports = (grunt) ->
 					ext: '.js'
 				]
 
-		less:
+		compass:
 			dev:
-				files:
-					'./dev/app/css/main.css': './src/app/css/main.less'
+        options:
+          sassDir: './src/app/css/',
+          cssDir: './dev/app/css/'
+          importPath: 'lib/',
 			production:
-				options:
-					yuicompress: true
-				files:
-					'./production/app/css/main.css': './src/app/css/main.less'
+        options:
+          sassDir: './src/app/css/',
+          cssDir: './production/app/css/'
+          importPath: 'lib/',
+
 
 		mocha:
 			test:
@@ -114,9 +117,9 @@ module.exports = (grunt) ->
 				tasks: []
 				options:
 					nospawn: true
-			less:
-				files: './src/**/*.less'
-				tasks: ['less:dev']
+			compass:
+				files: './src/**/*.sass'
+				tasks: ['compass:dev']
 			test:
 				files: './src/test/**/*.coffee'
 				tasks: ['test:watch']
@@ -147,7 +150,7 @@ module.exports = (grunt) ->
 	grunt.registerTask 'dev', [
 		'clean:dev'
 		'coffee'
-		'less:dev'
+		'compass:dev'
 		'copy:dev'
 		'copy:test'
 		'copy:templates'
@@ -156,7 +159,7 @@ module.exports = (grunt) ->
 	grunt.registerTask 'production', [
 		'clean:production'
 		'test'
-		'less:production'
+		'compass:production'
 		'copy:production'
 		'copy:productionRequire'
 		'copy:templates'

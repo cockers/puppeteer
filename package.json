@@ -10,7 +10,7 @@
 		"grunt-contrib-coffee" : "*",
 		"grunt-contrib-copy" : "*",
 		"grunt-contrib-connect" : "*",
-		"grunt-contrib-less" : "*",
+		"grunt-contrib-compass" : "*",
 		"grunt-contrib-requirejs" : "*",
 		"grunt-contrib-watch" : "~0.4.0",
 		"grunt-mocha" : "*",
